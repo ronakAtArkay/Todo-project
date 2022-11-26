@@ -11,3 +11,4 @@ class User(Base):
     created_at = Column(DateTime, default = datetime.now)
     update_at = Column(DateTime, default = datetime.now)
     is_deleted = Column(Boolean, default = False)
+    

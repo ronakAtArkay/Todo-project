@@ -57,5 +57,3 @@ def status_change(db: Session, id: str, ):
     db.commit()
     db.refresh(db_user)
     return db_user
-
-    

@@ -61,3 +61,4 @@ def delete_user(id : str, db: Session = Depends(get_db)):
 def status_changed(id : str, db: Session = Depends(get_db)):
     users = crud.status_change(db, id = id)
     return users
+

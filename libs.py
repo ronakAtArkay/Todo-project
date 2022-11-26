@@ -5,7 +5,6 @@ from datetime import datetime
 #     u_id = uuid.uuid4()
 #     return u_id
 
-
 def generate_id():
     id = str(uuid4())
     return id
