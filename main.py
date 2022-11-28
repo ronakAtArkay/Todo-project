@@ -22,7 +22,7 @@ def create_user(user: schemas.UserBase, db: Session = Depends(get_db)):
     return crud.create_user(db = db, user=user)
 
 # search user by name
-@app.get("/todo/users/{user_name}/")
+@app.get("/todo/users/{user_name}", response_model=schemas.UserDetail)
 def get_user_by_name(user_name : str, db : Session = Depends(get_db)):
     users = crud.get_name(db, user_name = user_name)
     if users is None:
@@ -30,14 +30,14 @@ def get_user_by_name(user_name : str, db : Session = Depends(get_db)):
     return users
 
 # get all users data
-@app.get("/todo/users/")
+@app.get("/todo/users/", response_model=schemas.UserDetail)
 def get_users_all_data(skip : int = 0, limit : int = 100, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit= limit)
     return users
 
 
 # search user by id
-@app.get("/todo/users/{user_id}")
+@app.get("/todo/users/{user_id}/", response_model=schemas.UserDetail)
 def get_user_by_id(user_id, db: Session = Depends(get_db)):
     users = crud.get_names(db, user_id)
     if users is None:
