@@ -1,6 +1,6 @@
 # from typing import Union, List
 from pydantic import BaseModel
-from sqlalchemy import DateTime
+from datetime import datetime
 
 class UserBase(BaseModel):
     name : str
@@ -12,9 +12,9 @@ class UserDetail(BaseModel):
     id : str
     name : str
     is_completed : bool
-    created_at : DateTime
-    update_at : DateTime
-    is_deleted : bool
+    created_at : datetime
+    is_deleted : datetime
+    is_deleted : datetime
 
     class Config:
         orm_mode = True

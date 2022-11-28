@@ -45,7 +45,7 @@ def get_user_by_id(user_id, db: Session = Depends(get_db)):
     return users
 
 # update a user by id
-@app.put("/todo/users/{id}")
+@app.put("/todo/users/{id}", response_model=schemas.UserDetail)
 def update_user(user_name : schemas.UserBase, id : str,  db: Session = Depends(get_db)):
     users =  crud.update(db, user_name = user_name, id=id)
     return users
