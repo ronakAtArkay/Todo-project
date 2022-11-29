@@ -17,11 +17,11 @@ def get_name(db: Session, user_name: str):
     return db.query(models.User).filter(models.User.name == user_name).first()
 
 # get all users
-def get_users(db: Session, skip : int = 0, limit: int = 100):
+def get_todos(db: Session, skip : int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
 
 # get user by id
-def get_names(db: Session, user_id : str):
+def get_name_by_id(db: Session, user_id : str):
     return db.query(models.User).filter(models.User.id == user_id).first()
 
 
@@ -39,7 +39,7 @@ def update(db: Session, id: str, user_name : schemas.UserBase):
 
 
 # permanent delete a user
-def delete_user(db: Session, id : str):
+def delete_todo(db: Session, id : str):
     db_user = db.query(models.User).filter(models.User.id == id).delete()
     if db_user is None:
         raise HTTPException(status_code= 404, detail="User not Found")
