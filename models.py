@@ -2,8 +2,8 @@ from sqlalchemy import Boolean,Column, String, DateTime
 from database import Base
 from datetime import datetime
 
-class User(Base):
-    __tablename__= "users"
+class Todo(Base):
+    __tablename__= "todos"
 
     id = Column(String(200), primary_key = True)
     name = Column(String(200), unique = True)

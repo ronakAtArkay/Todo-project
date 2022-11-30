@@ -2,13 +2,13 @@
 from pydantic import BaseModel
 from datetime import datetime
 
-class UserBase(BaseModel):
+class TodoBase(BaseModel):
     name : str
 
     class Config:
         orm_mode = True
 
-class UserDetail(BaseModel):
+class TodoDetail(BaseModel):
     id : str
     name : str
     is_completed : bool

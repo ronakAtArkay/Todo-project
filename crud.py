@@ -1,59 +1,59 @@
 from sqlalchemy.orm import Session
 import models, schemas
 from libs import generate_id, time
-from fastapi import HTTPException, status
+from fastapi import HTTPException
 
-# create a user
-def create_user(db: Session, user: schemas.UserBase):
-    db_user = models.User(id = generate_id(), name = user.name)
-    db.add(db_user)
+# create a todo
+def create_todo(db: Session, todo: schemas.TodoBase):
+    db_todo = models.Todo(id = generate_id(), name = todo.name)
+    db.add(db_todo)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(db_todo)
+    return db_todo
 
 
-# get user by name
-def get_name(db: Session, user_name: str):
-    return db.query(models.User).filter(models.User.name == user_name).first()
+# get todo by name
+def get_name(db: Session, todo_name: str):
+    return db.query(models.Todo).filter(models.Todo.name == todo_name).first()
 
-# get all users
+# get all todo
 def get_todos(db: Session, skip : int = 0, limit: int = 100):
-    return db.query(models.User).offset(skip).limit(limit).all()
+    return db.query(models.Todo).offset(skip).limit(limit).all()
 
-# get user by id
-def get_name_by_id(db: Session, user_id : str):
-    return db.query(models.User).filter(models.User.id == user_id).first()
+# get todo by id
+def get_name_by_id(db: Session, todo_id : str):
+    return db.query(models.Todo).filter(models.Todo.id == todo_id).first()
 
 
-#  update a user
-def update(db: Session, id: str, user_name : schemas.UserBase):
-    db_user = db.query(models.User).filter(models.User.id== id).first()
-    if db_user is None:
-        raise HTTPException(status_code= 404, detail="User not Found")
-    db_user.name = user_name.name
-    db_user.update_at = time()
-    db.add(db_user)
+#  update a todo
+def update(db: Session, id: str, todo_name : schemas.TodoBase):
+    db_todo = db.query(models.Todo).filter(models.Todo.id== id).first()
+    if db_todo is None:
+        raise HTTPException(status_code= 404, detail="todo not Found")
+    db_todo.name = todo_name.name
+    db_todo.update_at = time()
+    db.add(db_todo)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(db_todo)
+    return db_todo
 
 
-# permanent delete a user
+# permanent delete a todo
 def delete_todo(db: Session, id : str):
-    db_user = db.query(models.User).filter(models.User.id == id).delete()
-    if db_user is None:
-        raise HTTPException(status_code= 404, detail="User not Found")
+    db_todo = db.query(models.Todo).filter(models.Todo.id == id).delete()
+    if db_todo is None:
+        raise HTTPException(status_code= 404, detail="todo not Found")
     db.commit()
-    return db_user
+    return db_todo
 
-# delete user but change only status
+# delete todo but change only status
 def status_change(db: Session, id: str, ):
-    db_user = db.query(models.User).filter(models.User.id == id, models.User.is_deleted == False).first()
-    if db_user is None:
-        raise HTTPException(status_code= 404, detail="User not Found")
-    db_user.is_deleted = True
-    db_user.update_at = time()
-    db.add(db_user)
+    db_todo = db.query(models.Todo).filter(models.Todo.id == id, models.Todo.is_deleted == False).first()
+    if db_todo is None:
+        raise HTTPException(status_code= 404, detail="todo not Found")
+    db_todo.is_deleted = True
+    db_todo.update_at = time()
+    db.add(db_todo)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(db_todo)
+    return db_todo
